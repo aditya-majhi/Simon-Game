@@ -1,0 +1,43 @@
+body{
+    background-color: rgb(14, 1, 44);
+}
+.header h1{
+    color: rgb(197, 197, 113);
+    text-align: center;
+    font-size: 2.5rem;
+}
+.color1{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 5px;
+}
+.color2{
+    display: flex;
+    justify-content:space-evenly;
+    margin: 5px;
+}
+#red{
+    background-color: red;
+}
+#blue{
+    background-color: blue;
+}
+#yellow{
+    background-color: yellow;
+}
+#green{
+    background-color: green;
+}
+
+/* Utility CLass */
+.block{
+    width: 200px;
+    height: 200px;
+    border-radius: 35px;
+    border: 7px black solid;
+}
+
+.clicked{
+    box-shadow: 20px gray;
+    opacity: .6;
+}
