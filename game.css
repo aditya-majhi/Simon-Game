@@ -5,6 +5,14 @@ body{
     color: rgb(197, 197, 113);
     text-align: center;
     font-size: 2.5rem;
+    font-family: 'Ubuntu', sans-serif;
+}
+.header h2{
+    font-size: 2rem;
+    display: none;
+    text-align: center;
+    color: rgb(197, 197, 113);
+    font-family: 'Ubuntu', sans-serif;
 }
 .color1{
     display: flex;
@@ -29,6 +37,13 @@ body{
     background-color: green;
 }
 
+.footer{
+    text-align: center;
+    font-size: 1.2rem;
+    color: white;
+    font-family: 'Merriweather', serif;
+}
+
 /* Utility CLass */
 .block{
     width: 200px;
@@ -38,6 +53,11 @@ body{
 }
 
 .clicked{
-    box-shadow: 20px gray;
+    box-shadow: 0 0 20px white;
     opacity: .6;
+}
+
+.game-over{
+    background-color: red;
+    opacity: .8;
 }

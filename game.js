@@ -5,6 +5,28 @@ var result = true; //if user doing it right or wrong
 var level = 1; //current level of user
 var start = false;
 
+$(".block").click(function(event){
+    var clickedId = $(this).attr("id");
+    userPattern.push(clickedId);
+    // alert(clickedId);
+    var clickedMusic = "sounds/" + clickedId + ".mp3";
+    $("#" + clickedId).addClass("clicked");
+    setTimeout(function(){
+        $("#" + clickedId).removeClass("clicked");
+    },200);
+    playSound(clickedMusic);
+    compare();
+});
+
+$("body").keypress(function(event) {
+    if(!start){
+        pattern();
+        start = true;
+        $(".header h1").text("Level " + level) ;
+        $(".header h2").hide();
+    }
+})
+
 function playSound(music){
     var sound = new Audio(music);
     sound.play();
@@ -14,53 +36,52 @@ function pattern(){  //creates the computer generated pattern
     var randNum = Math.floor(Math.random()*4);
     var randId = color[randNum];
     compPattern.push(randId);
-    alert(randId);
-    // $(randId).addClass("clicked");
-    // setTimeout(function(){
-    //     $(randId).removeClass("clicked")
-    // },100)
+    // alert(randId);
+    $("#" + randId).addClass("clicked");
+    setTimeout(function(){
+        $("#" + randId).removeClass("clicked")
+    },300);
     var randMusic = "sounds/" + randId + ".mp3";
     playSound(randMusic);
 }
 
-$(".block").click(function(event){
-    var clickedId = $(this).attr("id");
-    userPattern.push(clickedId);
-    alert(clickedId);
-    var clickedMusic = "sounds/" + clickedId + ".mp3";
-    // $(clickedId).addClass("clicked");
-    // setTimeout(function(){
-    //     $(clickedId).removeClass("clicked");
-    // },100);
-    playSound(clickedMusic);
-    compare();
-});
+function winner(){
+    $(".header h1").text("Winner...");
+    $(".header h2").show();
+}
 
-function compare(){
-    for(var i = 0 ; i < level ; i++){
-        if(userPattern[i] != compPattern[i]){
-            var music = new Audio("sounds/wrong.mp3");
-            music.play();
-            alert("yes");
-            level = 1;
-            compPattern = [];
-            result = false;
-            start = false;
-            $(".header h1").text("Press any key to Restart..") ;
-        }
-    }
-    if (result === true){
-        level++;
-        $(".header h1").text("Level " + level) ;
-        pattern();
-    }
+function restart(){
+    level = 1;
+    start = false;
+    compPattern = [];
     userPattern = [];
 }
 
-$("body").keypress(function(event) {
-    if(!start){
-        pattern();
-        start = true;
-        $(".header h1").text("Level " + level) ;
+function compare(){
+    var length = (userPattern.length) - 1;
+    if(userPattern[length] === compPattern[length]){
+        if(userPattern.length === compPattern.length){
+            if(level === 15){
+                winner();
+                restart();
+            }
+            else{
+                level++;
+                $(".header h1").text("Level " + level) ;
+                setTimeout(function(){
+                    pattern();
+                } , 300);
+                userPattern = [];
+            }
+        }
     }
-})
+    else{
+        $(".header h1").text("Press a key to restart..") ;
+        restart();
+        $("body").addClass("game-over");
+        setTimeout(function(){
+            $("body").removeClass("game-over") ;
+        } , 100);
+        playSound("sounds/wrong.mp3");
+    }
+}
