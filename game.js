@@ -18,12 +18,13 @@ $(".block").click(function(event){
     compare();
 });
 
-$("body").keypress(function(event) {
+$(".btn button").click(function(event) {
     if(!start){
         pattern();
         start = true;
         $(".header h1").text("Level " + level) ;
         $(".header h2").hide();
+        $(".btn button").hide();
     }
 })
 
@@ -55,6 +56,7 @@ function restart(){
     start = false;
     compPattern = [];
     userPattern = [];
+    $(".btn button").show();
 }
 
 function compare(){
@@ -76,7 +78,7 @@ function compare(){
         }
     }
     else{
-        $(".header h1").text("Press a key to restart..") ;
+        $(".header h1").text("Game-Over!!") ;
         restart();
         $("body").addClass("game-over");
         setTimeout(function(){
